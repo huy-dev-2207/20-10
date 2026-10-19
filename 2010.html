@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>For My Wonderful Teacher ♡</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        :root {
+            --rose: #b94f70;
+            --pink: #e6a0b4;
+            --cream: #fffaf5;
+            --ink: #76515b;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            width: 100%
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse at 15% 12%, #f8dfe6 0, transparent 38%),
+                radial-gradient(ellipse at 90% 80%, #f1d7c8 0, transparent 36%),
+                var(--cream);
+            color: var(--ink);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit
+        }
+
+        #petals {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        header {
+            height: 72px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #edced7;
+            background: #fffaf5b8;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            font: 29px 'Great Vibes', cursive;
+            color: var(--rose)
+        }
+
+        .top-date {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #bb8292
+        }
+
+        .view {
+            display: none
+        }
+
+        .view.active {
+            display: block
+        }
+
+        #home {
+            animation: fadeIn .8s ease both
+        }
+
+        .hero {
+            text-align: center;
+            padding: clamp(35px, 7vh, 70px) 16px 10px
+        }
+
+        .kicker {
+            font-size: 10px;
+            letter-spacing: 5px;
+            color: #b67d8c;
+            font-weight: 700
+        }
+
+        .hero h1 {
+            font: clamp(64px, 11vw, 112px)/1.2 'Great Vibes', cursive;
+            color: var(--rose);
+            margin: 14px 0;
+            text-shadow: 0 9px 32px #c56c8730;
+        }
+
+        .hero h1 span {
+            color: #dc91a8
+        }
+
+        .subtitle {
+            font: italic clamp(14px, 2vw, 18px)/1.9 'Playfair Display', serif;
+            color: #9c727c;
+        }
+
+        .date {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 13px;
+            margin-top: 24px;
+            color: #b76a83;
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        .date:before,
+        .date:after {
+            content: '';
+            width: 35px;
+            height: 1px;
+            background: #d9a0b0
+        }
+
+        .gift-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 16px 75px;
+        }
+
+        .tiny-flower {
+            color: #d28aa0;
+            font-size: 22px;
+            letter-spacing: 12px;
+            margin: 10px 0 0
+        }
+
+        .envelope-hit {
+            border: 0;
+            background: transparent;
+            padding: 22px;
+            cursor: pointer;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .envelope-hit:focus-visible {
+            outline: 2px solid var(--rose);
+            border-radius: 15px
+        }
+
+        .envelope {
+            position: relative;
+            width: min(370px, 76vw);
+            height: 225px;
+            perspective: 1000px;
+            filter: drop-shadow(0 20px 24px #9e586b20);
+            transition: transform .5s;
+        }
+
+        .envelope-hit:hover .envelope {
+            transform: translateY(-5px)
+        }
+
+        .env-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 5px;
+            background: linear-gradient(145deg, #e8a8b9, #d986a0);
+        }
+
+        .letter-preview {
+            position: absolute;
+            z-index: 1;
+            left: 7%;
+            top: 5%;
+            width: 86%;
+            height: 87%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fffdf8;
+            border: 1px solid #f0dce0;
+            transition: transform .85s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .preview-script {
+            font: 38px 'Great Vibes', cursive;
+            color: var(--rose)
+        }
+
+        .preview-caption {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #b68a94;
+            margin-top: 9px
+        }
+
+        .preview-heart {
+            font-size: 24px;
+            color: #d58ca0;
+            margin-top: 8px
+        }
+
+        .env-front {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(150deg, #f3c1cd, #e9a7b8);
+            clip-path: polygon(0 0, 50% 59%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .env-flap {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            background: linear-gradient(160deg, #f9d7df, #efb6c5);
+            clip-path: polygon(0 0, 100% 0, 50% 66%);
+            transform-origin: top center;
+            transition: transform .7s cubic-bezier(.2, .7, .2, 1), opacity .4s .22s;
+        }
+
+        .wax {
+            position: absolute;
+            z-index: 5;
+            top: 43%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 49px;
+            height: 49px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff4ec;
+            font-size: 25px;
+            background: radial-gradient(circle at 35% 30%, #d47b96, #a84262);
+            box-shadow: 0 4px 12px #a74e6835;
+            transition: opacity .25s, transform .4s;
+        }
+
+        .envelope-hit.opening .env-flap {
+            transform: rotateX(180deg);
+            opacity: 0
+        }
+
+        .envelope-hit.opening .wax {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(.3)
+        }
+
+        .envelope-hit.opening .letter-preview {
+            transform: translateY(-70px)
+        }
+
+        .hint {
+            margin-top: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #b78392;
+            animation: breathe 2s infinite;
+        }
+
+        .subhint {
+            font: italic 13px 'Playfair Display', serif;
+            color: #bb939d;
+            margin-top: 10px
+        }
+
+        /* Màn hình thư */
+        #letterView {
+            position: fixed;
+            inset: 0;
+            z-index: 15;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            background: rgba(255, 247, 243, .97);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .65s ease, visibility 0s linear .65s;
+        }
+
+        #letterView.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition: opacity .65s ease;
+        }
+
+        .letter-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 10% 15%, #f6dce5, transparent 42%),
+                radial-gradient(ellipse at 90% 85%, #f1d8c8, transparent 40%),
+                #fff9f3;
+        }
+
+        .letter-wrap {
+            position: relative;
+            z-index: 1;
+            width: min(760px, calc(100% - 30px));
+            margin: 45px auto 65px;
+            perspective: 1200px;
+        }
+
+        .letter-sheet {
+            position: relative;
+            padding: clamp(26px, 6vw, 60px);
+            background:
+                linear-gradient(#fffdf9f5, #fffdf9f5),
+                repeating-linear-gradient(0deg, #f6e9e3 0, #f6e9e3 1px, transparent 1px, transparent 34px);
+            border: 1px solid #ead0d8;
+            box-shadow: 0 24px 90px #9f60721b;
+            transform: translateY(70px) scale(.92) rotateX(4deg);
+            opacity: 0;
+            transition: transform .85s cubic-bezier(.16, 1, .3, 1), opacity .55s ease;
+            transform-origin: top center;
+        }
+
+        #letterView.show .letter-sheet {
+            transform: translateY(0) scale(1) rotateX(0);
+            opacity: 1;
+            transition-delay: .12s;
+        }
+
+        .letter-sheet:before {
+            content: '✿';
+            position: absolute;
+            right: 14px;
+            top: 2px;
+            color: #f5e4e7;
+            font-size: 86px;
+            pointer-events: none;
+        }
+
+        .letter-sheet:after {
+            content: '❀';
+            position: absolute;
+            left: 12px;
+            bottom: -13px;
+            color: #f5e4e7;
+            font-size: 74px;
+            pointer-events: none;
+        }
+
+        .letter-date {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: #bc8797;
+            margin-bottom: 27px
+        }
+
+        .letter-title {
+            position: relative;
+            z-index: 1;
+            font: clamp(37px, 7vw, 58px)/1.3 'Great Vibes', cursive;
+            color: var(--rose);
+            text-align: center;
+            margin: 0 0 30px;
+        }
+
+        .letter-body {
+            position: relative;
+            z-index: 1
+        }
+
+        .letter-body p {
+            font: 16px/2 'Playfair Display', serif;
+            color: #79545d;
+            margin: 0 0 18px;
+        }
+
+        .letter-body .signature {
+            font: 34px 'Great Vibes', cursive;
+            text-align: right;
+            color: var(--rose);
+            margin: 30px 0 0;
+        }
+
+        .close-hint {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin: 22px 0 0;
+            color: #ad7c8b;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 25px 16px 30px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            color: #b5828f;
+        }
+
+        .footer-script {
+            font: 31px 'Great Vibes', cursive;
+            color: var(--rose);
+            margin-top: 10px
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes breathe {
+            50% {
+                opacity: .45
+            }
+        }
+
+        @media(max-width:520px) {
+            header {
+                height: 64px;
+                padding: 0 5%
+            }
+
+            .brand {
+                font-size: 24px
+            }
+
+            .top-date {
+                font-size: 9px;
+                letter-spacing: 1px
+            }
+
+            .hero {
+                padding-top: 45px
+            }
+
+            .envelope {
+                height: 190px
+            }
+
+            .gift-area {
+                padding-bottom: 40px
+            }
+
+            .letter-wrap {
+                margin: 20px auto 45px
+            }
+
+            .letter-body p {
+                font-size: 15px;
+                line-height: 1.95
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="petals" aria-hidden="true"></canvas>
+
+    <header>
+        <div class="brand">A little gift for you ♡</div>
+        <div class="top-date">20 · 10 · 2026</div>
+    </header>
+
+    <!-- TRANG PHONG BÌ -->
+    <main id="home" class="view active">
+        <section class="hero">
+            <div class="kicker">WITH LOVE & GRATITUDE</div>
+            <h1>Happy <span>20.10</span></h1>
+            <div class="subtitle">
+                Gửi người cô tuyệt vời của chúng em<br>
+                Một chút yêu thương, ngàn lời biết ơn.
+            </div>
+            <div class="date">NGÀY PHỤ NỮ VIỆT NAM</div>
+        </section>
+
+        <section class="gift-area">
+            <div class="tiny-flower">✿ ♡ ✿</div>
+
+            <button class="envelope-hit" id="envelopeButton" aria-label="Mở bức thư gửi cô">
+                <div class="envelope">
+                    <div class="env-back"></div>
+                    <div class="letter-preview">
+                        <div class="preview-script">Gửi cô yêu quý</div>
+                        <div class="preview-caption">WITH ALL MY HEART</div>
+                        <div class="preview-heart">♡</div>
+                    </div>
+                    <div class="env-front"></div>
+                    <div class="env-flap"></div>
+                    <div class="wax">♡</div>
+                </div>
+            </button>
+
+            <div class="hint">✧ NHẤN VÀO PHONG BÌ ĐỂ MỞ THƯ ✧</div>
+            <div class="subhint">Một món quà nhỏ được gửi bằng cả tấm lòng</div>
+        </section>
+    </main>
+
+    <!-- LÁ THƯ HIỆN TRÊN MỘT LỚP RIÊNG -->
+    <section id="letterView" aria-hidden="true">
+        <div class="letter-backdrop" id="letterBackdrop"></div>
+
+        <div class="letter-wrap">
+            <article class="letter-sheet" id="letterSheet">
+                <div class="letter-date">✧ 20 · 10 · 2026 ✧</div>
+                <h2 class="letter-title">Dear my beloved teacher...</h2>
+
+                <div class="letter-body">
+                    <p><strong>Kính gửi cô yêu quý!</strong></p>
+
+                    <p>
+                        Nhân ngày Phụ nữ Việt Nam 20/10, em xin gửi đến cô
+                        những lời chúc tốt đẹp và chân thành nhất.
+                    </p>
+
+                    <p>
+                        Em cảm ơn cô vì đã luôn tận tâm dạy dỗ, kiên nhẫn chỉ bảo
+                        và truyền cho chúng em không chỉ kiến thức mà còn cả
+                        những bài học quý giá trong cuộc sống.
+                    </p>
+
+                    <p>
+                        Em chúc cô luôn xinh đẹp, mạnh khỏe, hạnh phúc, luôn giữ
+                        nụ cười rạng rỡ trên môi và mãi tràn đầy nhiệt huyết với
+                        nghề giáo. Mong rằng mỗi ngày đến trường của cô đều là
+                        một ngày ngập tràn niềm vui, yêu thương và những điều thật đẹp.
+                    </p>
+
+                    <p>
+                        Có thể em chưa nói lời cảm ơn thường xuyên, nhưng em luôn
+                        trân trọng những điều cô đã dành cho chúng em. Chúc cô có
+                        một ngày 20/10 thật đặc biệt, bởi cô xứng đáng nhận được
+                        tất cả những điều tuyệt vời nhất!
+                    </p>
+
+                    <p class="signature">Với tất cả lòng biết ơn ♡</p>
+                </div>
+            </article>
+
+            <div class="close-hint">♡ NHẤN RA NGOÀI TỜ THƯ ĐỂ ĐÓNG ♡</div>
+        </div>
+    </section>
+
+    <footer>
+        CẢM ƠN CÔ VÌ ĐÃ LÀ MỘT PHẦN THANH XUÂN CỦA CHÚNG EM
+        <div class="footer-script">You make the world more beautiful.</div>
+        <div style="margin-top:12px">Made with love · 20.10.2026</div>
+    </footer>
+
+    <script>
+        // MỞ VÀ ĐÓNG THƯ
+        const envelopeButton = document.getElementById('envelopeButton');
+        const letterView = document.getElementById('letterView');
+        const letterBackdrop = document.getElementById('letterBackdrop');
+
+        let isOpen = false;
+        let busy = false;
+        let openTimer;
+
+        function openLetter() {
+            if (isOpen || busy) return;
+
+            isOpen = true;
+            busy = true;
+
+            envelopeButton.classList.add('opening');
+
+            // Nắp mở trước, sau đó trang thư xuất hiện.
+            openTimer = setTimeout(() => {
+                letterView.classList.add('show');
+                letterView.setAttribute('aria-hidden', 'false');
+                letterView.scrollTop = 0;
+
+                setTimeout(() => {
+                    busy = false;
+                }, 800);
+            }, 420);
+        }
+
+        function closeLetter() {
+            if (!isOpen || busy) return;
+
+            busy = true;
+            isOpen = false;
+
+            // Trang thư mờ dần, phong bì trở về trạng thái ban đầu.
+            letterView.classList.remove('show');
+            letterView.setAttribute('aria-hidden', 'true');
+
+            setTimeout(() => {
+                envelopeButton.classList.remove('opening');
+                busy = false;
+            }, 650);
+        }
+
+        envelopeButton.addEventListener('click', openLetter);
+
+        // Bắt nhấn trên toàn bộ lớp thư.
+        // Chỉ vùng tờ giấy mới không đóng thư.
+        letterView.addEventListener('click', event => {
+            if (!event.target.closest('#letterSheet')) {
+                closeLetter();
+            }
+        });
+
+        // Nhấn Escape cũng đóng thư.
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && isOpen) {
+                closeLetter();
+            }
+        });
+
+        // HOA RƠI LIÊN TỤC
+        const canvas = document.getElementById('petals');
+        const ctx = canvas.getContext('2d');
+        let W = 0;
+        let H = 0;
+        let petals = [];
+
+        const palette = [
+            '#f3b4c5', '#e99ab1', '#fff0d9',
+            '#d986a0', '#f8d9e1', '#edc4a5'
+        ];
+
+        function resizeCanvas() {
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            W = window.innerWidth;
+            H = window.innerHeight;
+
+            canvas.width = W * ratio;
+            canvas.height = H * ratio;
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+
+            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function newPetal(initial = false) {
+            return {
+                x: Math.random() * W,
+                y: initial ? Math.random() * H : -20,
+                vx: (Math.random() - .5) * .8,
+                vy: .65 + Math.random() * 1.2,
+                size: 3.5 + Math.random() * 5.5,
+                angle: Math.random() * Math.PI * 2,
+                spin: (Math.random() - .5) * .045,
+                phase: Math.random() * 10,
+                sway: .008 + Math.random() * .018,
+                color: palette[Math.floor(Math.random() * palette.length)]
+            };
+        }
+
+        for (let i = 0; i < 65; i++) {
+            petals.push(newPetal(true));
+        }
+
+        let previousFrame = 0;
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+
+            // Giới hạn tốc độ vẽ để không làm máy tính quá tải.
+            if (time - previousFrame < 25) return;
+            previousFrame = time;
+
+            ctx.clearRect(0, 0, W, H);
+
+            while (petals.length < 65) {
+                petals.push(newPetal());
+            }
+
+            for (let i = petals.length - 1; i >= 0; i--) {
+                const p = petals[i];
+
+                p.phase += p.sway;
+                p.x += p.vx + Math.sin(p.phase) * .65;
+                p.y += p.vy;
+                p.angle += p.spin;
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.angle);
+                ctx.globalAlpha = .86;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, p.size * .65, p.size, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                if (p.y > H + 25) {
+                    petals.splice(i, 1);
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+    </script>
+</body>
+
+</html>
